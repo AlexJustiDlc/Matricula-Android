@@ -19,13 +19,30 @@ public class AlumnoService {
         return repository.findAll();
     }
 
+    public Boolean getById(Long id){
+        return repository.existsById(id);
+    }
+
     public List<Alumno> findByNombreOrApellido(String n, String a){
         return repository.findByNombreContainsOrApellidoContains(n, a);
     }
 
     public String create(Alumno alumno){
         repository.save(alumno);
+        
         return "Alumno \""+alumno.getNombre()+"\" creado.";
     }
 
+    public String update(Alumno alumno, Long id){
+        Alumno alumnoUpdt = repository.getById(id);
+
+        alumnoUpdt.setNombre(alumno.getNombre());
+        alumnoUpdt.setApellido(alumno.getApellido());
+        alumnoUpdt.setTelefono(alumno.getTelefono());
+        alumnoUpdt.setDni(alumno.getDni());
+        alumnoUpdt.setGrado(alumnoUpdt.getGrado());
+
+        repository.save(alumnoUpdt);
+        return "Alumno \""+alumno.getNombre()+"\" actualizado.";
+    }
 }

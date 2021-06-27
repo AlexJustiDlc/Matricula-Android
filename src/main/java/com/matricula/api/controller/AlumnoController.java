@@ -30,7 +30,13 @@ public class AlumnoController {
     }
 
     @PostMapping
-    public ResponseEntity<?> AddAlumno(@RequestBody Alumno alumno){
+    public ResponseEntity<?> createAlumno(@RequestBody Alumno alumno){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(alumno));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateAlumno(@RequestBody Alumno alumno, @PathVariable Long id){
+        if (!service.getById(id)) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No existe el alumno.");
+        return ResponseEntity.status(HttpStatus.OK).body(service.update(alumno, id));
     }
 }

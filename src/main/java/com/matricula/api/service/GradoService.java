@@ -19,8 +19,20 @@ public class GradoService {
         return repository.findAll();
     }
 
+    public Boolean getById(Long id){
+        return repository.existsById(id);
+    }
+
     public String create(Grado grado){
         repository.save(grado);
         return "Grado \""+grado.getDescripcion()+"\" creado.";
+    }
+
+    public String update(Grado grado, Long id){
+        Grado gradoUpdt = repository.getById(id);
+        gradoUpdt.setDescripcion(grado.getDescripcion());
+
+        repository.save(gradoUpdt);
+        return "Grado \""+grado.getDescripcion()+"\" actualizado.";
     }
 }
