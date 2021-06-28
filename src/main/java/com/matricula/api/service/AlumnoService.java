@@ -1,6 +1,8 @@
 package com.matricula.api.service;
 
 import com.matricula.api.model.Alumno;
+import com.matricula.api.model.Mensualidad;
+import com.matricula.api.model.Pago;
 import com.matricula.api.repository.AlumnoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,12 @@ public class AlumnoService {
 
     @Autowired
     private AlumnoRepository repository;
+
+    @Autowired
+    private MensualidadService serviceMensualidad;
+
+    @Autowired
+    private PagoService servicePago;
 
     public List<Alumno> getAll(){
         return repository.findAll();
@@ -29,7 +37,16 @@ public class AlumnoService {
 
     public String create(Alumno alumno){
         repository.save(alumno);
-        
+
+        List<Mensualidad> mensualidades = serviceMensualidad.getAll();
+        Alumno alumnoPago = repository.findByNombre(alumno.getNombre());
+
+        for (Mensualidad mensualidad : mensualidades){
+            Pago mensualidadPago = new Pago();
+            mensualidadPago.setMensualidad(mensualidad);
+            mensualidadPago.setAlumno(alumnoPago);
+            servicePago.create(mensualidadPago);
+        }
         return "Alumno \""+alumno.getNombre()+"\" creado.";
     }
 

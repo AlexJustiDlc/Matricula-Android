@@ -27,4 +27,9 @@ public class Pago {
 
     @ManyToOne
     private Alumno alumno;
+
+    @PrePersist
+    void Prepersit() {
+        estado = false;
+    }
 }

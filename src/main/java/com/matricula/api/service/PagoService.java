@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -40,4 +41,16 @@ public class PagoService {
         repository.save(pagoUpd);
         return "Pago Actualizado.";
     }
+
+    public String pagar(Pago pago, Long id){
+        LocalDate date = LocalDate.now();
+        Pago pagar = repository.getById(id);
+
+        pagar.setDescripcion(pago.getDescripcion());
+        pagar.setFechaPago(date);
+        pagar.setEstado(true);
+        repository.save(pagar);
+        return "Pago Realizado del mes de "+pagar.getMensualidad().getMes();
+    }
+
 }

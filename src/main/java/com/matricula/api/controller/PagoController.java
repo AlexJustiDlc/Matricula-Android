@@ -33,4 +33,10 @@ public class PagoController {
         if (!service.getById(id)) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No existe el pago.");
         return ResponseEntity.status(HttpStatus.OK).body(service.update(pago, id));
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> realizarPago(@RequestBody Pago pago, @PathVariable Long id){
+        if (!service.getById(id)) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No existe el pago.");
+        return ResponseEntity.status(HttpStatus.OK).body(service.pagar(pago, id));
+    }
 }
