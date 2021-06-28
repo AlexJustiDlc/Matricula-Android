@@ -22,7 +22,14 @@ public class Alumno {
     private String apellido;
     private String telefono;
     private String dni;
+    private String correo;
+    private Boolean estado;
 
     @ManyToOne
     private Grado grado;
+
+    @PrePersist
+    void Prepersit() {
+        estado = true;
+    }
 }

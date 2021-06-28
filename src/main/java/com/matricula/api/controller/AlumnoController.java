@@ -39,4 +39,10 @@ public class AlumnoController {
         if (!service.getById(id)) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No existe el alumno.");
         return ResponseEntity.status(HttpStatus.OK).body(service.update(alumno, id));
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> changeStatusAlumno(@PathVariable Long id) {
+        if (!service.getById(id)) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No existe el alumno.");
+        return ResponseEntity.status(HttpStatus.OK).body(service.changeStatus(id));
+    }
 }

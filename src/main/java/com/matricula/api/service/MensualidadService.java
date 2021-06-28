@@ -29,10 +29,6 @@ public class MensualidadService {
         return "Mensualidad Creada.";
     }
 
-    public Boolean fecha(LocalDate date){
-        return repository.findByFechaInicio(date) != null;
-    }
-
     public String update(Mensualidad mensualidad, Long id){
         Mensualidad mensualidadUpd = repository.getById(id);
 

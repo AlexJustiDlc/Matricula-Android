@@ -40,9 +40,19 @@ public class AlumnoService {
         alumnoUpdt.setApellido(alumno.getApellido());
         alumnoUpdt.setTelefono(alumno.getTelefono());
         alumnoUpdt.setDni(alumno.getDni());
+        alumnoUpdt.setCorreo(alumno.getCorreo());
+        alumnoUpdt.setEstado(alumno.getEstado());
         alumnoUpdt.setGrado(alumnoUpdt.getGrado());
 
         repository.save(alumnoUpdt);
         return "Alumno \""+alumno.getNombre()+"\" actualizado.";
+    }
+
+    public String changeStatus(Long id){
+        Alumno alumno = repository.getById(id);
+        alumno.setEstado(!alumno.getEstado());
+        repository.save(alumno);
+
+        return "Se actualizo el estado del alumno "+alumno.getNombre();
     }
 }
