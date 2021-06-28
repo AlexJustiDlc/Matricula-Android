@@ -53,6 +53,6 @@ public class AlumnoService {
         alumno.setEstado(!alumno.getEstado());
         repository.save(alumno);
 
-        return "Se actualizo el estado del alumno "+alumno.getNombre();
+        return "Se actualizó el estado del alumno "+alumno.getNombre();
     }
 }
