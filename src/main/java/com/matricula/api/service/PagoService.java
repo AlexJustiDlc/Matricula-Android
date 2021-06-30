@@ -53,4 +53,8 @@ public class PagoService {
         return "Pago Realizado del mes de "+pagar.getMensualidad().getMes();
     }
 
+    public List<Pago> getPagosByIdAlumno(Long id){
+        return repository.findByAlumno_Id(id);
+    }
+
 }
