@@ -57,4 +57,7 @@ public class PagoService {
         return repository.findByAlumno_Id(id);
     }
 
+    public List<Pago> custom(Long  id , LocalDate mes ){
+        return repository.findByEstadoAndAlumno_IdAndMensualidad_FechaFinalBefore( false , id , mes  );
+    }
 }

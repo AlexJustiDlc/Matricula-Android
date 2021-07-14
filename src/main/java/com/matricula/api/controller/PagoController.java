@@ -3,10 +3,12 @@ package com.matricula.api.controller;
 import com.matricula.api.model.Pago;
 import com.matricula.api.service.PagoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -43,6 +45,17 @@ public class PagoController {
     @GetMapping("/alumno/{id}")
     public ResponseEntity<?> pagosByAlumno(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(service.getPagosByIdAlumno(id));
+    }
+
+    @GetMapping("/consulta/{id}/{fecha}")
+    public ResponseEntity<?> mes(@PathVariable Long id,@PathVariable String fecha){
+        LocalDate date = LocalDate.parse(fecha);
+        return ResponseEntity.status(HttpStatus.OK).body(service.custom(id, date));
+    }
+
+    @GetMapping("/custom")
+    public ResponseEntity<?> custom(Long id , @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate localDate){
+        return ResponseEntity.status(HttpStatus.OK).body(service.custom( id , localDate));
     }
 
 }
